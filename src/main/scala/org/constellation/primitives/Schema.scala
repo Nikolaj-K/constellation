@@ -226,6 +226,9 @@ object Schema {
     }*/
 
     def ledgerApply()(implicit dao: DAO): Unit = {
+      dao.addressService.transfer(src, dst, amount).unsafeRunSync
+
+      /*
       dao.addressService.update(
         src.hash,
         { a: AddressCacheData => a.copy(balance = a.balance - amount)},
@@ -236,6 +239,7 @@ object Schema {
         { a: AddressCacheData => a.copy(balance = a.balance + amount)},
         AddressCacheData(amount, 0L) // unused since this address should already exist here
       )
+      */
     }
 
     def ledgerApplySnapshot()(implicit dao: DAO): Unit = {
